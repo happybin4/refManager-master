@@ -44,35 +44,37 @@
             this.장바구니관리ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.장바구니에추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.구매ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.dgvRefitems = new System.Windows.Forms.DataGridView();
+            this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.txtCount = new System.Windows.Forms.TextBox();
+            this.lblUnit = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.txtAmount = new System.Windows.Forms.TextBox();
+            this.btnTypeSE = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.txtType = new System.Windows.Forms.TextBox();
+            this.btnSelect = new System.Windows.Forms.Button();
+            this.btnWaste = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbItemType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRefitems)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.냉장고관리ToolStripMenuItem,
             this.레시피ToolStripMenuItem,
             this.장바구니ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(828, 24);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(946, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -83,13 +85,13 @@
             this.품목추가ToolStripMenuItem,
             this.종료ToolStripMenuItem});
             this.냉장고관리ToolStripMenuItem.Name = "냉장고관리ToolStripMenuItem";
-            this.냉장고관리ToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.냉장고관리ToolStripMenuItem.Size = new System.Drawing.Size(98, 24);
             this.냉장고관리ToolStripMenuItem.Text = "냉장고관리";
             // 
             // 냉장고추가ToolStripMenuItem
             // 
             this.냉장고추가ToolStripMenuItem.Name = "냉장고추가ToolStripMenuItem";
-            this.냉장고추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.냉장고추가ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.냉장고추가ToolStripMenuItem.Text = "냉장고 관리";
             this.냉장고추가ToolStripMenuItem.Click += new System.EventHandler(this.냉장고추가ToolStripMenuItem_Click);
             // 
@@ -99,26 +101,27 @@
             this.품목추가ToolStripMenuItem1,
             this.품목수정ToolStripMenuItem});
             this.품목추가ToolStripMenuItem.Name = "품목추가ToolStripMenuItem";
-            this.품목추가ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.품목추가ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.품목추가ToolStripMenuItem.Text = "품목 관리";
             // 
             // 품목추가ToolStripMenuItem1
             // 
             this.품목추가ToolStripMenuItem1.Name = "품목추가ToolStripMenuItem1";
-            this.품목추가ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.품목추가ToolStripMenuItem1.Size = new System.Drawing.Size(224, 26);
             this.품목추가ToolStripMenuItem1.Text = "품목 추가";
             this.품목추가ToolStripMenuItem1.Click += new System.EventHandler(this.품목추가ToolStripMenuItem1_Click);
             // 
             // 품목수정ToolStripMenuItem
             // 
             this.품목수정ToolStripMenuItem.Name = "품목수정ToolStripMenuItem";
-            this.품목수정ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.품목수정ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.품목수정ToolStripMenuItem.Text = "품목 수정";
+            this.품목수정ToolStripMenuItem.Click += new System.EventHandler(this.품목수정ToolStripMenuItem_Click);
             // 
             // 종료ToolStripMenuItem
             // 
             this.종료ToolStripMenuItem.Name = "종료ToolStripMenuItem";
-            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.종료ToolStripMenuItem.Text = "종료";
             // 
             // 레시피ToolStripMenuItem
@@ -127,7 +130,7 @@
             this.레시피관리ToolStripMenuItem,
             this.요리하기ToolStripMenuItem});
             this.레시피ToolStripMenuItem.Name = "레시피ToolStripMenuItem";
-            this.레시피ToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
+            this.레시피ToolStripMenuItem.Size = new System.Drawing.Size(68, 24);
             this.레시피ToolStripMenuItem.Text = "레시피";
             // 
             // 레시피관리ToolStripMenuItem
@@ -136,25 +139,25 @@
             this.레시피추가ToolStripMenuItem,
             this.레시피수정ToolStripMenuItem});
             this.레시피관리ToolStripMenuItem.Name = "레시피관리ToolStripMenuItem";
-            this.레시피관리ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피관리ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.레시피관리ToolStripMenuItem.Text = "레시피 관리";
             // 
             // 레시피추가ToolStripMenuItem
             // 
             this.레시피추가ToolStripMenuItem.Name = "레시피추가ToolStripMenuItem";
-            this.레시피추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피추가ToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.레시피추가ToolStripMenuItem.Text = "레시피 추가";
             // 
             // 레시피수정ToolStripMenuItem
             // 
             this.레시피수정ToolStripMenuItem.Name = "레시피수정ToolStripMenuItem";
-            this.레시피수정ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피수정ToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
             this.레시피수정ToolStripMenuItem.Text = "레시피 수정";
             // 
             // 요리하기ToolStripMenuItem
             // 
             this.요리하기ToolStripMenuItem.Name = "요리하기ToolStripMenuItem";
-            this.요리하기ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.요리하기ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.요리하기ToolStripMenuItem.Text = "요리하기";
             // 
             // 장바구니ToolStripMenuItem
@@ -162,7 +165,7 @@
             this.장바구니ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.장바구니관리ToolStripMenuItem});
             this.장바구니ToolStripMenuItem.Name = "장바구니ToolStripMenuItem";
-            this.장바구니ToolStripMenuItem.Size = new System.Drawing.Size(67, 20);
+            this.장바구니ToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.장바구니ToolStripMenuItem.Text = "장바구니";
             // 
             // 장바구니관리ToolStripMenuItem
@@ -171,176 +174,193 @@
             this.장바구니에추가ToolStripMenuItem,
             this.구매ToolStripMenuItem});
             this.장바구니관리ToolStripMenuItem.Name = "장바구니관리ToolStripMenuItem";
-            this.장바구니관리ToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.장바구니관리ToolStripMenuItem.Size = new System.Drawing.Size(187, 26);
             this.장바구니관리ToolStripMenuItem.Text = "장바구니 관리";
             // 
             // 장바구니에추가ToolStripMenuItem
             // 
             this.장바구니에추가ToolStripMenuItem.Name = "장바구니에추가ToolStripMenuItem";
-            this.장바구니에추가ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.장바구니에추가ToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.장바구니에추가ToolStripMenuItem.Text = "장바구니에 추가";
             // 
             // 구매ToolStripMenuItem
             // 
             this.구매ToolStripMenuItem.Name = "구매ToolStripMenuItem";
-            this.구매ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.구매ToolStripMenuItem.Size = new System.Drawing.Size(202, 26);
             this.구매ToolStripMenuItem.Text = "구매";
             // 
-            // dataGridView1
+            // dgvRefitems
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 225);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(806, 355);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvRefitems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRefitems.Location = new System.Drawing.Point(14, 281);
+            this.dgvRefitems.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.dgvRefitems.Name = "dgvRefitems";
+            this.dgvRefitems.RowHeadersWidth = 51;
+            this.dgvRefitems.RowTemplate.Height = 23;
+            this.dgvRefitems.Size = new System.Drawing.Size(921, 444);
+            this.dgvRefitems.TabIndex = 1;
+            this.dgvRefitems.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRefitems_CellDoubleClick);
             // 
-            // textBox1
+            // txtName
             // 
-            this.textBox1.Location = new System.Drawing.Point(90, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 21);
-            this.textBox1.TabIndex = 2;
+            this.txtName.Location = new System.Drawing.Point(103, 77);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(114, 25);
+            this.txtName.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 25);
+            this.label2.Location = new System.Drawing.Point(14, 80);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.Size = new System.Drawing.Size(52, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "품목명";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(198, 20);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "검색";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 103);
+            this.label3.Location = new System.Drawing.Point(14, 129);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 12);
+            this.label3.Size = new System.Drawing.Size(72, 15);
             this.label3.TabIndex = 7;
             this.label3.Text = "소비 갯수";
             // 
-            // textBox2
+            // txtCount
             // 
-            this.textBox2.Location = new System.Drawing.Point(90, 98);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 21);
-            this.textBox2.TabIndex = 6;
+            this.txtCount.Location = new System.Drawing.Point(103, 126);
+            this.txtCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtCount.Name = "txtCount";
+            this.txtCount.Size = new System.Drawing.Size(114, 25);
+            this.txtCount.TabIndex = 0;
+            this.txtCount.Leave += new System.EventHandler(this.txtCount_Leave);
             // 
-            // label4
+            // lblUnit
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(196, 144);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "단위";
+            this.lblUnit.AutoSize = true;
+            this.lblUnit.Location = new System.Drawing.Point(223, 180);
+            this.lblUnit.Name = "lblUnit";
+            this.lblUnit.Size = new System.Drawing.Size(37, 15);
+            this.lblUnit.TabIndex = 8;
+            this.lblUnit.Text = "단위";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 142);
+            this.label5.Location = new System.Drawing.Point(14, 178);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 12);
+            this.label5.Size = new System.Drawing.Size(57, 15);
             this.label5.TabIndex = 10;
             this.label5.Text = "소비 량";
             // 
-            // textBox3
+            // txtAmount
             // 
-            this.textBox3.Location = new System.Drawing.Point(90, 137);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 21);
-            this.textBox3.TabIndex = 9;
+            this.txtAmount.Location = new System.Drawing.Point(103, 177);
+            this.txtAmount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtAmount.Name = "txtAmount";
+            this.txtAmount.Size = new System.Drawing.Size(114, 25);
+            this.txtAmount.TabIndex = 1;
+            this.txtAmount.Leave += new System.EventHandler(this.txtAmount_Leave);
             // 
-            // button2
+            // btnTypeSE
             // 
-            this.button2.Location = new System.Drawing.Point(198, 57);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 13;
-            this.button2.Text = "검색";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnTypeSE.Location = new System.Drawing.Point(353, 21);
+            this.btnTypeSE.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnTypeSE.Name = "btnTypeSE";
+            this.btnTypeSE.Size = new System.Drawing.Size(86, 29);
+            this.btnTypeSE.TabIndex = 13;
+            this.btnTypeSE.Text = "검색";
+            this.btnTypeSE.UseVisualStyleBackColor = true;
+            this.btnTypeSE.Click += new System.EventHandler(this.btnTypeSE_Click);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 64);
+            this.label6.Location = new System.Drawing.Point(14, 31);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 12);
+            this.label6.Size = new System.Drawing.Size(67, 15);
             this.label6.TabIndex = 12;
             this.label6.Text = "품목종류";
             // 
-            // textBox4
+            // txtType
             // 
-            this.textBox4.Location = new System.Drawing.Point(90, 59);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 21);
-            this.textBox4.TabIndex = 11;
+            this.txtType.Location = new System.Drawing.Point(103, 25);
+            this.txtType.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.txtType.Name = "txtType";
+            this.txtType.Size = new System.Drawing.Size(114, 25);
+            this.txtType.TabIndex = 11;
             // 
-            // button3
+            // btnSelect
             // 
-            this.button3.Location = new System.Drawing.Point(706, 144);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(85, 23);
-            this.button3.TabIndex = 14;
-            this.button3.Text = "냉장고 조회";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnSelect.Location = new System.Drawing.Point(807, 180);
+            this.btnSelect.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSelect.Name = "btnSelect";
+            this.btnSelect.Size = new System.Drawing.Size(97, 29);
+            this.btnSelect.TabIndex = 3;
+            this.btnSelect.Text = "냉장고 조회";
+            this.btnSelect.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnWaste
             // 
-            this.button4.Location = new System.Drawing.Point(612, 144);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 15;
-            this.button4.Text = "소비";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnWaste.Location = new System.Drawing.Point(699, 180);
+            this.btnWaste.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnWaste.Name = "btnWaste";
+            this.btnWaste.Size = new System.Drawing.Size(86, 29);
+            this.btnWaste.TabIndex = 2;
+            this.btnWaste.Text = "소비";
+            this.btnWaste.UseVisualStyleBackColor = true;
+            this.btnWaste.Click += new System.EventHandler(this.btnWaste_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button4);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.cbItemType);
+            this.groupBox1.Controls.Add(this.btnTypeSE);
+            this.groupBox1.Controls.Add(this.btnSelect);
+            this.groupBox1.Controls.Add(this.btnWaste);
+            this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtAmount);
+            this.groupBox1.Controls.Add(this.lblUnit);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 41);
+            this.groupBox1.Controls.Add(this.txtType);
+            this.groupBox1.Controls.Add(this.txtCount);
+            this.groupBox1.Location = new System.Drawing.Point(14, 51);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(806, 178);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.groupBox1.Size = new System.Drawing.Size(921, 222);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "품목소비";
             // 
+            // cbItemType
+            // 
+            this.cbItemType.FormattingEnabled = true;
+            this.cbItemType.Location = new System.Drawing.Point(226, 25);
+            this.cbItemType.Name = "cbItemType";
+            this.cbItemType.Size = new System.Drawing.Size(121, 23);
+            this.cbItemType.TabIndex = 16;
+            // 
             // MyRef
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 592);
+            this.ClientSize = new System.Drawing.Size(946, 740);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvRefitems);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "MyRef";
             this.Text = "내냉장고";
+            this.Load += new System.EventHandler(this.MyRef_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRefitems)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -366,21 +386,21 @@
         private System.Windows.Forms.ToolStripMenuItem 장바구니에추가ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 구매ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 품목수정ToolStripMenuItem;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridView dgvRefitems;
+        private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtCount;
+        private System.Windows.Forms.Label lblUnit;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox txtAmount;
+        private System.Windows.Forms.Button btnTypeSE;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TextBox txtType;
+        private System.Windows.Forms.Button btnSelect;
+        private System.Windows.Forms.Button btnWaste;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cbItemType;
     }
 }
 

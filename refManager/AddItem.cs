@@ -15,6 +15,7 @@ namespace refManager
         Items it;
         ItemDB items = new ItemDB();
         bool rbCheck = false;
+        
         public AddItem()
         {
             InitializeComponent();
@@ -25,14 +26,15 @@ namespace refManager
             string[] codes = { "A100", "B100"};
             
             DataSet ds = items.GetCommonCode(codes);
+            
             DataSet ds2 = items.GetRefName();
-           
-
+ 
             CommonUtil.BindingComboBox(cbRefName, ds2.Tables[0], "refID", "refName");
             CommonUtil.BindingComboBox(cbItemType, ds.Tables["A100"], "codeID", "codeName");
             CommonUtil.BindingComboBox(cbAmountType, ds.Tables["B100"], "codeID", "codeName");
         }
 
+        //품목 타입 콤보박스
         private void cbItemType_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cbItemType.SelectedIndex > 0)
@@ -46,18 +48,35 @@ namespace refManager
             else
             {
                 cbItemName.DataSource = null;
-            }                        
+            }
+            cbItemName.Tag = cbItemName.SelectedValue;
             //itemID, itemName 
-            
-        }
 
+        }
+        //품목명 콤보박스
         private void cbItemName_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtItemName.Text = cbItemName.Text;
+            cbItemName.Tag = cbItemName.SelectedValue;
         }
 
         private void btnInsert_Click(object sender, EventArgs e)
         {
+            if (rbRef1.Checked)
+            {
+                it.stoPlace = rbRef1.Text;
+                rbCheck = true;
+            }
+            else if (rbRef2.Checked)
+            {
+                it.stoPlace = rbRef2.Text;
+                rbCheck = true;
+            }
+            else
+            {
+                rbCheck = false;
+            }
+
             StringBuilder sb = new StringBuilder();
             //sb.AppendLine("학번은 10자리로 입력하세요.");
             if (cbRefName.Text.Length < 1)
@@ -90,29 +109,34 @@ namespace refManager
             }
             else
             {
-                it.itemID = 0;
+                // itemID, refID, amount, count, leftCount, stoPlace, dDay
+                try
+                {
+                    it.itemID = Convert.ToInt32(cbItemName.Tag);
+                    it.refID = Convert.ToInt32(cbRefName.Tag);
+                    it.amount = int.Parse(txtAmount.Text);
+                    it.count = int.Parse(txtNum.Text);
+                    it.leftCount = int.Parse(txtNum.Text);
+                    it.dDay = dtpDday.Value.Date;
+                    it.leftAmount = it.amount * it.count;
+                    it.itemUnit = cbAmountType.Text;
+                    ItemDB idb = new ItemDB();
+                    idb.InsertItem(it);
+                    idb.Dispose();
+                    MessageBox.Show($"{txtItemName.Text} {txtAmount.Text}{cbAmountType.Text} " +
+                        $"{txtNum.Text}개를 {cbRefName.Text}에 넣었습니다");
+                }
+                catch(Exception err)
+                {
+                    MessageBox.Show(err.Message);
+                }
             }
-            
-           
-        }
 
-        private void rbRef1_CheckedChanged(object sender, EventArgs e)
-        {
-            rbCheck = true;
-            if (rbRef1.Checked)
-            {
-                it.stoPlace = rbRef1.Text;
-            }
-            
         }
-
-        private void rbRef2_CheckedChanged(object sender, EventArgs e)
+        //냉장고명 콤보박스
+        private void cbRefName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rbCheck = true;
-            if (rbRef2.Checked)
-            {
-                it.stoPlace = rbRef2.Text;
-            }
+            cbRefName.Tag = cbRefName.SelectedValue;
         }
     }
 }

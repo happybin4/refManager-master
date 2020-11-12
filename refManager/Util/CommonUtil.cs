@@ -14,15 +14,17 @@ namespace refManager
         {
             if (blankItemAdd)
             {
-                DataRow dr = dt.NewRow();                
+                DataRow dr = dt.NewRow();               
                 dr[displayMember] = "";
-                dt.Rows.InsertAt(dr, 0);
+                dt.Rows.InsertAt(dr, 0);                
                 dt.AcceptChanges();
             }
 
             
             cbo.DisplayMember = displayMember;
+            cbo.ValueMember = valueMember;
             cbo.DataSource = dt;
+            
         }
         public static void SetInitGridView(DataGridView dgv)
         {
