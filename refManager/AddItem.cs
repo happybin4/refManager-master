@@ -90,7 +90,7 @@ namespace refManager
             }
             else
             {
-
+                it.itemID = 0;
             }
             
            
