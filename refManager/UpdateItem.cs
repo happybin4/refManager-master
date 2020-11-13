@@ -60,13 +60,16 @@ namespace refManager
             txtRefName.Text = dgvUpdateItems["refName", e.RowIndex].Value.ToString();
             txtItmeType.Text = dgvUpdateItems["itemType", e.RowIndex].Value.ToString();
             txtItemName.Text = dgvUpdateItems["itemName", e.RowIndex].Value.ToString();
-            txtItemName.Text = dgvUpdateItems["itemName", e.RowIndex].Value.ToString();
-            if(dgvUpdateItems["stoPlace", e.RowIndex].Value.ToString() == "냉장")            
+            cbRefName.SelectedText = dgvUpdateItems["refName", e.RowIndex].Value.ToString();           
+            cbItemType.SelectedText = dgvUpdateItems["itemType", e.RowIndex].Value.ToString();           
+            cbItemName.SelectedText = dgvUpdateItems["itemName", e.RowIndex].Value.ToString();
+            if (dgvUpdateItems["stoPlace", e.RowIndex].Value.ToString() == "냉장")            
                 rbRef1.Select();            
             else            
                 rbRef2.Select();            
             txtNum.Text = dgvUpdateItems["leftCount", e.RowIndex].Value.ToString();
             txtAmount.Text = dgvUpdateItems["leftAmount", e.RowIndex].Value.ToString();
+            cbAmountType.SelectedText = dgvUpdateItems["ItemUnit", e.RowIndex].Value.ToString();
             dtpDday.Value = Convert.ToDateTime(dgvUpdateItems["dDay", e.RowIndex].Value.ToString());
 
         }
@@ -97,7 +100,18 @@ namespace refManager
 
         private void cbRefName_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txtRefName.Text = cbRefName.Text;
             cbRefName.Tag = cbRefName.SelectedValue;
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

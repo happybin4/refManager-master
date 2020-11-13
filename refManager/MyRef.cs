@@ -144,15 +144,15 @@ namespace refManager
             StringBuilder sb = new StringBuilder();
             if(txtName.Text.Length  < 1 || txtType.Text.Length < 1)
             {
-                sb.Append("소비할 품목을 선택하세요");
+                sb.AppendLine("소비할 품목을 선택하세요");
             }
             if(int.Parse(txtCount.Text) > list[0])
             {
-                sb.Append($"냉장고에 있는 갯수보다 많습니다 {list[0]}보다 적게 작성하세요");
+                sb.AppendLine($"냉장고에 있는 갯수보다 많습니다 {list[0]}보다 적게 작성하세요");
             }
             if (int.Parse(txtAmount.Text) > list[1])
             {
-                sb.Append($"냉장고에 있는 용량보다 많습니다 {list[1]}보다 적게 작성하세요");
+                sb.AppendLine($"냉장고에 있는 용량보다 많습니다 {list[1]}보다 적게 작성하세요");
             }
             if(sb.Length > 0)
             {

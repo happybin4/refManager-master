@@ -58,9 +58,11 @@ namespace refManager
                             	on ri.itemID = i.itemID
                                 inner join ref r
                                 on ri.refID = r.refID
-                            where i.itemType = '유제품';";
+                            where i.itemType = @itemType;";
 
             da.SelectCommand = new MySqlCommand(sql, conn);
+            da.SelectCommand.Parameters.Add("itemType", MySqlDbType.VarChar);
+            da.SelectCommand.Parameters["itemType"].Value = itemType;
             da.Fill(ds, "typeItems");
 
             return ds;
