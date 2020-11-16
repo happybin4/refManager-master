@@ -48,20 +48,27 @@
             this.txtName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCount = new System.Windows.Forms.TextBox();
             this.lblUnit = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtAmount = new System.Windows.Forms.TextBox();
             this.btnTypeSE = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtType = new System.Windows.Forms.TextBox();
             this.btnSelect = new System.Windows.Forms.Button();
             this.btnWaste = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.countPanel = new System.Windows.Forms.Panel();
+            this.numCount = new System.Windows.Forms.NumericUpDown();
+            this.amountPanel = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.rbAmount = new System.Windows.Forms.RadioButton();
+            this.rbCount = new System.Windows.Forms.RadioButton();
             this.cbItemType = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRefitems)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.countPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).BeginInit();
+            this.amountPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -201,15 +208,16 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(90, 62);
+            this.txtName.Location = new System.Drawing.Point(89, 46);
             this.txtName.Name = "txtName";
+            this.txtName.ReadOnly = true;
             this.txtName.Size = new System.Drawing.Size(100, 21);
             this.txtName.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 64);
+            this.label2.Location = new System.Drawing.Point(12, 49);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(41, 12);
             this.label2.TabIndex = 4;
@@ -218,24 +226,16 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 103);
+            this.label3.Location = new System.Drawing.Point(11, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(57, 12);
             this.label3.TabIndex = 7;
             this.label3.Text = "소비 갯수";
             // 
-            // txtCount
-            // 
-            this.txtCount.Location = new System.Drawing.Point(90, 101);
-            this.txtCount.Name = "txtCount";
-            this.txtCount.Size = new System.Drawing.Size(100, 21);
-            this.txtCount.TabIndex = 0;
-            this.txtCount.Leave += new System.EventHandler(this.txtCount_Leave);
-            // 
             // lblUnit
             // 
             this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(195, 144);
+            this.lblUnit.Location = new System.Drawing.Point(178, 23);
             this.lblUnit.Name = "lblUnit";
             this.lblUnit.Size = new System.Drawing.Size(29, 12);
             this.lblUnit.TabIndex = 8;
@@ -244,7 +244,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 142);
+            this.label5.Location = new System.Drawing.Point(21, 23);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 12);
             this.label5.TabIndex = 10;
@@ -252,15 +252,15 @@
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(90, 142);
+            this.txtAmount.Location = new System.Drawing.Point(72, 20);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(100, 21);
             this.txtAmount.TabIndex = 1;
-            this.txtAmount.Leave += new System.EventHandler(this.txtAmount_Leave);
+            this.txtAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAmount_KeyPress);
             // 
             // btnTypeSE
             // 
-            this.btnTypeSE.Location = new System.Drawing.Point(309, 17);
+            this.btnTypeSE.Location = new System.Drawing.Point(195, 18);
             this.btnTypeSE.Name = "btnTypeSE";
             this.btnTypeSE.Size = new System.Drawing.Size(75, 23);
             this.btnTypeSE.TabIndex = 13;
@@ -277,13 +277,6 @@
             this.label6.TabIndex = 12;
             this.label6.Text = "품목종류";
             // 
-            // txtType
-            // 
-            this.txtType.Location = new System.Drawing.Point(90, 20);
-            this.txtType.Name = "txtType";
-            this.txtType.Size = new System.Drawing.Size(100, 21);
-            this.txtType.TabIndex = 11;
-            // 
             // btnSelect
             // 
             this.btnSelect.Location = new System.Drawing.Point(706, 144);
@@ -292,6 +285,7 @@
             this.btnSelect.TabIndex = 3;
             this.btnSelect.Text = "냉장고 조회";
             this.btnSelect.UseVisualStyleBackColor = true;
+            this.btnSelect.Click += new System.EventHandler(this.btnSelect_Click);
             // 
             // btnWaste
             // 
@@ -305,19 +299,18 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.countPanel);
+            this.groupBox1.Controls.Add(this.amountPanel);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.rbAmount);
+            this.groupBox1.Controls.Add(this.rbCount);
             this.groupBox1.Controls.Add(this.cbItemType);
             this.groupBox1.Controls.Add(this.btnTypeSE);
             this.groupBox1.Controls.Add(this.btnSelect);
             this.groupBox1.Controls.Add(this.btnWaste);
             this.groupBox1.Controls.Add(this.txtName);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.txtAmount);
-            this.groupBox1.Controls.Add(this.lblUnit);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.txtType);
-            this.groupBox1.Controls.Add(this.txtCount);
             this.groupBox1.Location = new System.Drawing.Point(12, 41);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(806, 178);
@@ -325,13 +318,74 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "품목소비";
             // 
+            // countPanel
+            // 
+            this.countPanel.Controls.Add(this.numCount);
+            this.countPanel.Controls.Add(this.label3);
+            this.countPanel.Location = new System.Drawing.Point(0, 109);
+            this.countPanel.Name = "countPanel";
+            this.countPanel.Size = new System.Drawing.Size(223, 58);
+            this.countPanel.TabIndex = 26;
+            this.countPanel.Visible = false;
+            // 
+            // numCount
+            // 
+            this.numCount.Location = new System.Drawing.Point(89, 21);
+            this.numCount.Name = "numCount";
+            this.numCount.Size = new System.Drawing.Size(100, 21);
+            this.numCount.TabIndex = 23;
+            // 
+            // amountPanel
+            // 
+            this.amountPanel.Controls.Add(this.txtAmount);
+            this.amountPanel.Controls.Add(this.label5);
+            this.amountPanel.Controls.Add(this.lblUnit);
+            this.amountPanel.Location = new System.Drawing.Point(229, 109);
+            this.amountPanel.Name = "amountPanel";
+            this.amountPanel.Size = new System.Drawing.Size(263, 58);
+            this.amountPanel.TabIndex = 25;
+            this.amountPanel.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 81);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 12);
+            this.label1.TabIndex = 24;
+            this.label1.Text = "소비 방법";
+            // 
+            // rbAmount
+            // 
+            this.rbAmount.AutoSize = true;
+            this.rbAmount.Location = new System.Drawing.Point(156, 79);
+            this.rbAmount.Name = "rbAmount";
+            this.rbAmount.Size = new System.Drawing.Size(47, 16);
+            this.rbAmount.TabIndex = 22;
+            this.rbAmount.TabStop = true;
+            this.rbAmount.Text = "용량";
+            this.rbAmount.UseVisualStyleBackColor = true;
+            this.rbAmount.CheckedChanged += new System.EventHandler(this.rbAmount_CheckedChanged);
+            // 
+            // rbCount
+            // 
+            this.rbCount.AutoSize = true;
+            this.rbCount.Location = new System.Drawing.Point(90, 79);
+            this.rbCount.Name = "rbCount";
+            this.rbCount.Size = new System.Drawing.Size(47, 16);
+            this.rbCount.TabIndex = 21;
+            this.rbCount.TabStop = true;
+            this.rbCount.Text = "갯수";
+            this.rbCount.UseVisualStyleBackColor = true;
+            this.rbCount.CheckedChanged += new System.EventHandler(this.rbAmount_CheckedChanged);
+            // 
             // cbItemType
             // 
             this.cbItemType.FormattingEnabled = true;
-            this.cbItemType.Location = new System.Drawing.Point(198, 20);
+            this.cbItemType.Location = new System.Drawing.Point(89, 20);
             this.cbItemType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbItemType.Name = "cbItemType";
-            this.cbItemType.Size = new System.Drawing.Size(106, 20);
+            this.cbItemType.Size = new System.Drawing.Size(100, 20);
             this.cbItemType.TabIndex = 16;
             // 
             // MyRef
@@ -351,6 +405,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvRefitems)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.countPanel.ResumeLayout(false);
+            this.countPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCount)).EndInit();
+            this.amountPanel.ResumeLayout(false);
+            this.amountPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -378,17 +437,21 @@
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCount;
         private System.Windows.Forms.Label lblUnit;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtAmount;
         private System.Windows.Forms.Button btnTypeSE;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtType;
         private System.Windows.Forms.Button btnSelect;
         private System.Windows.Forms.Button btnWaste;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbItemType;
+        private System.Windows.Forms.Panel countPanel;
+        private System.Windows.Forms.NumericUpDown numCount;
+        private System.Windows.Forms.Panel amountPanel;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton rbAmount;
+        private System.Windows.Forms.RadioButton rbCount;
     }
 }
 

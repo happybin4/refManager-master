@@ -12,9 +12,11 @@ namespace refManager
 {
     public partial class MyRef : Form
     {
-        ItemDB items = new ItemDB();
-        List<int> list = new List<int>();
+        ItemDB items = new ItemDB();        
         Items it;
+        int leftct=0;
+        int leftat=0;
+        int gat=0;
         public MyRef()
         {
             InitializeComponent();
@@ -82,103 +84,132 @@ namespace refManager
 
             lblUnit.Text = dgvRefitems["ItemUnit", e.RowIndex].Value.ToString();
             txtName.Text = dgvRefitems["itemName", e.RowIndex].Value.ToString();
-            txtType.Text = dgvRefitems["itemType", e.RowIndex].Value.ToString();
+            cbItemType.Text = dgvRefitems["itemType", e.RowIndex].Value.ToString();
             txtName.Tag = dgvRefitems["refItemID", e.RowIndex].Value.ToString();
-            string lc = dgvRefitems["leftCount", e.RowIndex].Value.ToString(); //남은 갯수
-            string la = dgvRefitems["leftAmount", e.RowIndex].Value.ToString(); //남은 용량
-            string ga = dgvRefitems["amount", e.RowIndex].Value.ToString(); //개당 용량
+            lblUnit.Text = dgvRefitems["ItemUnit", e.RowIndex].Value.ToString();
+            leftct = Convert.ToInt32(dgvRefitems["leftCount", e.RowIndex].Value); //남은 갯수
+            leftat = Convert.ToInt32(dgvRefitems["leftAmount", e.RowIndex].Value); //남은 용량
+            gat = Convert.ToInt32(dgvRefitems["amount", e.RowIndex].Value); //개당 용량
             
-            list.Add(int.Parse(lc)); //0
-            list.Add(int.Parse(la)); //1
-            list.Add(int.Parse(ga)); //2
-            
-
-        }
-
-        private void txtCount_Leave(object sender, EventArgs e)
-        {
-            
-            if (list[1]%list[2] != 0)
-            {
-                if(list[0] == int.Parse(txtCount.Text))
-                {
-                    txtAmount.Text = list[1].ToString();
-                }
-                else if(int.Parse(txtCount.Text) < list[0])
-                {
-                    txtAmount.Text = (int.Parse(txtCount.Text) * list[2]).ToString();
-                }
-            }
-            else
-            {
-                txtAmount.Text = (int.Parse(txtCount.Text) * list[2]).ToString();
-            }          
-        }
-
-        private void txtAmount_Leave(object sender, EventArgs e)
-        {
-            int ct = 0;
-            if (list[1] % list[2] != 0)
-            {
-                if (list[2] < int.Parse(txtAmount.Text))
-                {
-                    ct = int.Parse(txtAmount.Text) / list[2];
-                }
-                else if(list[1]-((list[0]-1)*list[2]) < int.Parse(txtCount.Text))
-                {
-                    ct = 1;
-                    txtCount.Text = ct.ToString();
-                }
-                else
-                {
-                    txtCount.Text = ct.ToString();
-                }
-            }
-            else
-                txtCount.Text = ct.ToString();
         }
 
         private void btnWaste_Click(object sender, EventArgs e)
         {
             ItemDB db = new ItemDB();
-            StringBuilder sb = new StringBuilder();
-            if(txtName.Text.Length  < 1 || txtType.Text.Length < 1)
+            
+            if(txtName.Text.Length  < 1 || cbItemType.Text.Length < 1)
             {
-                sb.AppendLine("소비할 품목을 선택하세요");
+                MessageBox.Show("소비할 품목을 선택하세요");
+                return;
             }
-            if(int.Parse(txtCount.Text) > list[0])
+            else if(rbCount.Checked == false && rbAmount.Checked == false)
             {
-                sb.AppendLine($"냉장고에 있는 갯수보다 많습니다 {list[0]}보다 적게 작성하세요");
+                MessageBox.Show("소비할 방법을 선택하여 갯수 또는 용량을 입력하세요");
+                return;
             }
-            if (int.Parse(txtAmount.Text) > list[1])
+            //leftct = 현재갯수, leftat = 현재용량, gat = 개당갯수
+            else if(rbCount.Checked) //갯수로 소비
             {
-                sb.AppendLine($"냉장고에 있는 용량보다 많습니다 {list[1]}보다 적게 작성하세요");
-            }
-            if(sb.Length > 0)
-            {
-                MessageBox.Show(sb.ToString());
-            }
-            else
-            {
-                //i.itemName, r.refName, stoPlace, leftCount, amount,leftAmount, ItemUnit
-                if(int.Parse(txtCount.Text) == list[0])
+                int ct = Convert.ToInt32(numCount.Value); //소비할 갯수
+                if (numCount.Value < 1)
                 {
-                    it.refItemID = Convert.ToInt32(txtName.Tag);
-                    db.DeleteItem(it);
+                    MessageBox.Show("0보다 큰수를 선택해주세요");                    
+                    return;
                 }
                 else
                 {
-                    it.refItemID = Convert.ToInt32(txtName.Tag);
-                    it.leftCount = list[0] - int.Parse(txtCount.Text);
-                    it.leftAmount = list[1] - int.Parse(txtAmount.Text);
-                    db.WasteItem(it);
-                    db.Dispose();
+                    int rItemID = Convert.ToInt32(txtName.Tag);
+                    it.refItemID = rItemID; //아이템 아이디
+                    if (ct > leftct)
+                    {
+                        MessageBox.Show("현재 갯수보다 더 적은 갯수를 소비해주세요");
+                        return;
+                    }
+                    else if (ct == leftct)
+                    {
+                        items.DeleteItem(rItemID);
+                    }
+                    else if (leftat%gat == 0) //남은용량이 개당용량으로 나눈 나머지가 0일때
+                    {
+                        it.leftAmount = leftat - (leftct * gat); //용량은 소비전용량 - (갯수*개당용량)
+                        it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                        
+                        items.WasteItem(it);
+                        DataLoad();
+                    }
+                    else // 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
+                    {
+                        it.leftAmount = ((ct - 1) * gat) + (leftat % gat); // ((소비갯수-1)*개당용량) + 소비전용량%개당용량
+                        it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                       
+                        items.WasteItem(it);
+                        DataLoad();
+                    }
                 }
             }
-            DataLoad();
+            else if (rbAmount.Checked)
+            {
+                int at = int.Parse(txtAmount.Text); //소비할 용량
+                if(txtAmount.Text.Length < 1)
+                {
+                    MessageBox.Show("소비할 용량을 적어주세요");
+                    return;
+                }
+                else
+                {
+                    int rItemID = Convert.ToInt32(txtName.Tag);
+                    it.refItemID = rItemID; //아이템 아이디
+                    if (at > leftat)
+                    {
+                        MessageBox.Show("남은 용량보다 적은 용량을 적어주세요");
+                        return;
+                    }
+                    else if (at == leftat)
+                    {
+                        items.DeleteItem(rItemID);
+                    }
+                    else if(leftat % gat == 0)//남은용량이 개당용량으로 나눈 나머지가 0일때
+                    {
+                        it.leftCount = (leftat - at) / gat; // 남은 갯수 = (소비전용량- 소비할 용량)/개당용량
+                        it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
+                        items.WasteItem(it);
+                        DataLoad();
+                    }
+                    else// 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
+                    {
+                        it.leftCount = ((leftat - at) / gat)+1; // 남은 갯수 = ((소비전용량- 소비할 용량)/개당용량)+1
+                        it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
+                        items.WasteItem(it);
+                        DataLoad();
+                    }
+                }
+            }
+            
 
         }
 
-        
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            DataLoad();
+        }
+
+        private void rbAmount_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbCount.Checked)
+            {
+                countPanel.Visible = true;
+                amountPanel.Visible = false;
+            }
+            else if (rbAmount.Checked)
+            {
+                countPanel.Visible = false;
+                amountPanel.Visible = true;
+            }            
+        }
+        private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsDigit(e.KeyChar) || e.KeyChar == Convert.ToChar(Keys.Back))) //숫자와 백스페이스를 제외한 나머지를 바로 처리
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

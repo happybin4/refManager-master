@@ -15,13 +15,13 @@ namespace refManager
         public int refItemID;
         public int itemID;
         public int refID;
-        public int amount;
-        public int count;
-        public int leftCount;
-        public string stoPlace;
+        public int amount;//개당용량
+        public int count; //저장시 용량
+        public int leftCount; // 남은갯수
+        public string stoPlace; //저장장소
         public DateTime dDay;
         public string itemType;
-        public int leftAmount;
+        public int leftAmount; // 남은용량
         public string itemUnit;
     }
     class ItemDB : IDisposable
@@ -167,14 +167,14 @@ namespace refManager
 
             cmd.ExecuteNonQuery();
         }
-        public void DeleteItem(Items item)
+        public void DeleteItem(int id)
         {
             string sql = @"delete from refitems
                             where refItemID = @refItemID";
 
             MySqlCommand cmd = new MySqlCommand(sql, conn);
             cmd.Parameters.Add("@refItemID", MySqlDbType.Int32);
-            cmd.Parameters["@refItemID"].Value = item.refItemID;
+            cmd.Parameters["@refItemID"].Value = id;
 
             cmd.ExecuteNonQuery();
         }
