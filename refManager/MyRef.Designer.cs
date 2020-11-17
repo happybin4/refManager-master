@@ -80,7 +80,7 @@
             this.장바구니ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(828, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(915, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -202,9 +202,10 @@
             this.dgvRefitems.Name = "dgvRefitems";
             this.dgvRefitems.RowHeadersWidth = 51;
             this.dgvRefitems.RowTemplate.Height = 23;
-            this.dgvRefitems.Size = new System.Drawing.Size(806, 355);
+            this.dgvRefitems.Size = new System.Drawing.Size(888, 355);
             this.dgvRefitems.TabIndex = 1;
             this.dgvRefitems.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRefitems_CellDoubleClick);
+            this.dgvRefitems.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgvRefitems_DataBindingComplete);
             // 
             // txtName
             // 
@@ -235,7 +236,7 @@
             // lblUnit
             // 
             this.lblUnit.AutoSize = true;
-            this.lblUnit.Location = new System.Drawing.Point(178, 23);
+            this.lblUnit.Location = new System.Drawing.Point(163, 22);
             this.lblUnit.Name = "lblUnit";
             this.lblUnit.Size = new System.Drawing.Size(29, 12);
             this.lblUnit.TabIndex = 8;
@@ -244,7 +245,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 23);
+            this.label5.Location = new System.Drawing.Point(6, 22);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(45, 12);
             this.label5.TabIndex = 10;
@@ -252,7 +253,7 @@
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(72, 20);
+            this.txtAmount.Location = new System.Drawing.Point(57, 19);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(100, 21);
             this.txtAmount.TabIndex = 1;
@@ -279,7 +280,7 @@
             // 
             // btnSelect
             // 
-            this.btnSelect.Location = new System.Drawing.Point(706, 144);
+            this.btnSelect.Location = new System.Drawing.Point(792, 149);
             this.btnSelect.Name = "btnSelect";
             this.btnSelect.Size = new System.Drawing.Size(85, 23);
             this.btnSelect.TabIndex = 3;
@@ -289,7 +290,7 @@
             // 
             // btnWaste
             // 
-            this.btnWaste.Location = new System.Drawing.Point(612, 144);
+            this.btnWaste.Location = new System.Drawing.Point(698, 149);
             this.btnWaste.Name = "btnWaste";
             this.btnWaste.Size = new System.Drawing.Size(75, 23);
             this.btnWaste.TabIndex = 2;
@@ -313,7 +314,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(12, 41);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(806, 178);
+            this.groupBox1.Size = new System.Drawing.Size(888, 178);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "품목소비";
@@ -322,7 +323,7 @@
             // 
             this.countPanel.Controls.Add(this.numCount);
             this.countPanel.Controls.Add(this.label3);
-            this.countPanel.Location = new System.Drawing.Point(0, 109);
+            this.countPanel.Location = new System.Drawing.Point(0, 114);
             this.countPanel.Name = "countPanel";
             this.countPanel.Size = new System.Drawing.Size(223, 58);
             this.countPanel.TabIndex = 26;
@@ -340,9 +341,9 @@
             this.amountPanel.Controls.Add(this.txtAmount);
             this.amountPanel.Controls.Add(this.label5);
             this.amountPanel.Controls.Add(this.lblUnit);
-            this.amountPanel.Location = new System.Drawing.Point(229, 109);
+            this.amountPanel.Location = new System.Drawing.Point(6, 114);
             this.amountPanel.Name = "amountPanel";
-            this.amountPanel.Size = new System.Drawing.Size(263, 58);
+            this.amountPanel.Size = new System.Drawing.Size(212, 58);
             this.amountPanel.TabIndex = 25;
             this.amountPanel.Visible = false;
             // 
@@ -392,7 +393,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 592);
+            this.ClientSize = new System.Drawing.Size(915, 592);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvRefitems);
             this.Controls.Add(this.menuStrip1);

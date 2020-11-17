@@ -138,5 +138,10 @@ namespace refManager
         {
             cbRefName.Tag = cbRefName.SelectedValue;
         }
+
+        private void btnCancle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

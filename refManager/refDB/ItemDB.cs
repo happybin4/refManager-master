@@ -37,7 +37,26 @@ namespace refManager
             MySqlDataAdapter da = new MySqlDataAdapter();
             DataSet ds = new DataSet();
 
-            string sql = @"select refItemID, i.itemName, r.refName, stoPlace, leftCount, amount, leftAmount, ItemUnit, i.itemType, dDay
+            string sql = @"select refItemID, i.itemName, r.refName, stoPlace, leftCount, amount, leftAmount,
+                                ItemUnit, i.itemType, datediff(dDay,curdate()) dDay
+                            from refitems ri inner join items i 
+                            	on ri.itemID = i.itemID
+                                inner join ref r
+                                on ri.refID = r.refID
+                                order by dDay;";
+
+            da.SelectCommand = new MySqlCommand(sql, conn);
+            da.Fill(ds, "refItems");
+
+            return ds;
+        }
+        public DataSet GetAllUpDateItems()
+        {
+            MySqlDataAdapter da = new MySqlDataAdapter();
+            DataSet ds = new DataSet();
+
+            string sql = @"select refItemID, i.itemName, r.refName, stoPlace, leftCount, amount, leftAmount,
+                                ItemUnit, i.itemType, dDay
                             from refitems ri inner join items i 
                             	on ri.itemID = i.itemID
                                 inner join ref r
@@ -53,12 +72,14 @@ namespace refManager
             MySqlDataAdapter da = new MySqlDataAdapter();
             DataSet ds = new DataSet();
 
-            string sql = @"select refItemID, i.itemName, r.refName, stoPlace, leftCount, amount,leftAmount, ItemUnit
+            string sql = @"select refItemID, i.itemName, r.refName, stoPlace, leftCount, amount, leftAmount,
+                                ItemUnit, i.itemType, datediff(dDay,curdate()) dDay
                             from refitems ri inner join items i 
                             	on ri.itemID = i.itemID
                                 inner join ref r
                                 on ri.refID = r.refID
-                            where i.itemType = @itemType;";
+                            where i.itemType = @itemType
+                            order by dDay;";
 
             da.SelectCommand = new MySqlCommand(sql, conn);
             da.SelectCommand.Parameters.Add("itemType", MySqlDbType.VarChar);
@@ -109,9 +130,6 @@ namespace refManager
             da.Fill(ds);
             return ds;
         }
-
-        
-
         public void InsertItem(Items item)
         {
             string sql = @"insert into refitems (itemID, refID, amount, count, leftCount, stoPlace, dDay, leftAmount, ItemUnit)

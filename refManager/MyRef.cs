@@ -17,6 +17,7 @@ namespace refManager
         int leftct=0;
         int leftat=0;
         int gat=0;
+        string refName;
         public MyRef()
         {
             InitializeComponent();
@@ -59,6 +60,7 @@ namespace refManager
             CommonUtil.AddGridTextColumn(dgvRefitems, "남은용량", "leftAmount", 80);
             CommonUtil.AddGridTextColumn(dgvRefitems, "용량 단위", "ItemUnit", 80);
             CommonUtil.AddGridTextColumn(dgvRefitems, "품목타입", "itemType", 100);
+            CommonUtil.AddGridTextColumn(dgvRefitems, "d-Day", "dDay", 80);
 
             DataLoad();
         }
@@ -90,7 +92,8 @@ namespace refManager
             leftct = Convert.ToInt32(dgvRefitems["leftCount", e.RowIndex].Value); //남은 갯수
             leftat = Convert.ToInt32(dgvRefitems["leftAmount", e.RowIndex].Value); //남은 용량
             gat = Convert.ToInt32(dgvRefitems["amount", e.RowIndex].Value); //개당 용량
-            
+            refName = dgvRefitems["refName", e.RowIndex].Value.ToString();
+
         }
 
         private void btnWaste_Click(object sender, EventArgs e)
@@ -118,7 +121,8 @@ namespace refManager
                 }
                 else
                 {
-                    int rItemID = Convert.ToInt32(txtName.Tag);
+                    string del = "";
+                    int rItemID = Convert.ToInt32(txtName.Tag);                    
                     it.refItemID = rItemID; //아이템 아이디
                     if (ct > leftct)
                     {
@@ -128,21 +132,25 @@ namespace refManager
                     else if (ct == leftct)
                     {
                         items.DeleteItem(rItemID);
+                        del = " 남은 갯수를 전부 소비하였습니다";
                     }
                     else if (leftat%gat == 0) //남은용량이 개당용량으로 나눈 나머지가 0일때
                     {
-                        it.leftAmount = leftat - (leftct * gat); //용량은 소비전용량 - (갯수*개당용량)
+                        it.leftAmount = leftat - (ct * gat); //용량은 소비전용량 - (소비할 갯수*개당용량)
                         it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                        
-                        items.WasteItem(it);
-                        DataLoad();
+                        items.WasteItem(it);                                                
                     }
                     else // 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
                     {
                         it.leftAmount = ((ct - 1) * gat) + (leftat % gat); // ((소비갯수-1)*개당용량) + 소비전용량%개당용량
                         it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                       
-                        items.WasteItem(it);
-                        DataLoad();
+                        items.WasteItem(it);                        
                     }
+                    MessageBox.Show($"{txtName.Text} {ct}개를 {refName}에서 꺼냈습니다{del}.");
+                    cbItemType.Text = "";
+                    txtName.Text = "";
+                    rbCount.Checked = false;
+                    DataLoad();
                 }
             }
             else if (rbAmount.Checked)
@@ -155,8 +163,10 @@ namespace refManager
                 }
                 else
                 {
+                    string del = "";
                     int rItemID = Convert.ToInt32(txtName.Tag);
                     it.refItemID = rItemID; //아이템 아이디
+                    int sbhat = leftat - at;
                     if (at > leftat)
                     {
                         MessageBox.Show("남은 용량보다 적은 용량을 적어주세요");
@@ -165,21 +175,25 @@ namespace refManager
                     else if (at == leftat)
                     {
                         items.DeleteItem(rItemID);
+                        del = "남은 용량을 전부 소비하였습니다";                        
                     }
-                    else if(leftat % gat == 0)//남은용량이 개당용량으로 나눈 나머지가 0일때
+                    else if(sbhat % gat == 0)//남은용량이 개당용량으로 나눈 나머지가 0일때
                     {
                         it.leftCount = (leftat - at) / gat; // 남은 갯수 = (소비전용량- 소비할 용량)/개당용량
                         it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
-                        items.WasteItem(it);
-                        DataLoad();
+                        items.WasteItem(it);                        
                     }
                     else// 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
                     {
                         it.leftCount = ((leftat - at) / gat)+1; // 남은 갯수 = ((소비전용량- 소비할 용량)/개당용량)+1
                         it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
-                        items.WasteItem(it);
-                        DataLoad();
+                        items.WasteItem(it);                        
                     }
+                    MessageBox.Show($"{txtName.Text} {at}{lblUnit.Text}를 {refName}에서 꺼냈습니다{del}.");
+                    cbItemType.Text = "";
+                    txtName.Text = "";
+                    rbAmount.Checked = false;
+                    DataLoad();
                 }
             }
             
@@ -193,16 +207,15 @@ namespace refManager
 
         private void rbAmount_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbCount.Checked)
-            {
-                countPanel.Visible = true;
-                amountPanel.Visible = false;
-            }
-            else if (rbAmount.Checked)
-            {
+            if (rbCount.Checked)            
+                countPanel.Visible = true;                
+            else
                 countPanel.Visible = false;
+
+            if(rbAmount.Checked)
                 amountPanel.Visible = true;
-            }            
+            else
+                amountPanel.Visible = false;                     
         }
         private void txtAmount_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -210,6 +223,15 @@ namespace refManager
             {
                 e.Handled = true;
             }
+        }
+
+        private void dgvRefitems_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvRefitems.Rows)
+                if (Convert.ToInt32(row.Cells[9].Value) <= 5)
+                {
+                    row.DefaultCellStyle.ForeColor = Color.Red;
+                }
         }
     }
 }
