@@ -132,19 +132,22 @@ namespace refManager
                     else if (ct == leftct)
                     {
                         items.DeleteItem(rItemID);
+                        db.Dispose();
                         del = " 남은 갯수를 전부 소비하였습니다";
                     }
                     else if (leftat%gat == 0) //남은용량이 개당용량으로 나눈 나머지가 0일때
                     {
                         it.leftAmount = leftat - (ct * gat); //용량은 소비전용량 - (소비할 갯수*개당용량)
                         it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                        
-                        items.WasteItem(it);                                                
+                        items.WasteItem(it);
+                        db.Dispose();
                     }
                     else // 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
                     {
                         it.leftAmount = ((ct - 1) * gat) + (leftat % gat); // ((소비갯수-1)*개당용량) + 소비전용량%개당용량
                         it.leftCount = leftct - ct; //갯수는 현재 갯수 - 소비할 갯수                       
-                        items.WasteItem(it);                        
+                        items.WasteItem(it);
+                        db.Dispose();
                     }
                     MessageBox.Show($"{txtName.Text} {ct}개를 {refName}에서 꺼냈습니다{del}.");
                     cbItemType.Text = "";
@@ -175,19 +178,22 @@ namespace refManager
                     else if (at == leftat)
                     {
                         items.DeleteItem(rItemID);
+                        db.Dispose();
                         del = "남은 용량을 전부 소비하였습니다";                        
                     }
                     else if(sbhat % gat == 0)//남은용량이 개당용량으로 나눈 나머지가 0일때
                     {
                         it.leftCount = (leftat - at) / gat; // 남은 갯수 = (소비전용량- 소비할 용량)/개당용량
                         it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
-                        items.WasteItem(it);                        
+                        items.WasteItem(it);
+                        db.Dispose();
                     }
                     else// 남은용량이 개당용량으로 나눈 나머지가 0이 아닐떄
                     {
                         it.leftCount = ((leftat - at) / gat)+1; // 남은 갯수 = ((소비전용량- 소비할 용량)/개당용량)+1
                         it.leftAmount = leftat - at; //남은용량 = 소비전용량 - 소비할 용량                        
-                        items.WasteItem(it);                        
+                        items.WasteItem(it);
+                        db.Dispose();
                     }
                     MessageBox.Show($"{txtName.Text} {at}{lblUnit.Text}를 {refName}에서 꺼냈습니다{del}.");
                     cbItemType.Text = "";

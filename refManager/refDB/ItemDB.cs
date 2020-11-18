@@ -16,7 +16,7 @@ namespace refManager
         public int itemID;
         public int refID;
         public int amount;//개당용량
-        public int count; //저장시 용량
+        
         public int leftCount; // 남은갯수
         public string stoPlace; //저장장소
         public DateTime dDay;
@@ -132,8 +132,8 @@ namespace refManager
         }
         public void InsertItem(Items item)
         {
-            string sql = @"insert into refitems (itemID, refID, amount, count, leftCount, stoPlace, dDay, leftAmount, ItemUnit)
-                            values(@itemID, @refID, @amount, @count, @leftCount, @stoPlace, @dDay, @leftAmount, @ItemUnit); ";
+            string sql = @"insert into refitems (itemID, refID, amount, leftCount, stoPlace, dDay, leftAmount, ItemUnit)
+                            values(@itemID, @refID, @amount, @leftCount, @stoPlace, @dDay, @leftAmount, @ItemUnit); ";
 
             MySqlCommand cmd = new MySqlCommand(sql, conn);
 
@@ -144,10 +144,7 @@ namespace refManager
             cmd.Parameters["@refID"].Value = item.refID;
 
             cmd.Parameters.Add("@amount", MySqlDbType.Int32);
-            cmd.Parameters["@amount"].Value = item.amount;
-
-            cmd.Parameters.Add("@count", MySqlDbType.Int32);
-            cmd.Parameters["@count"].Value = item.count;
+            cmd.Parameters["@amount"].Value = item.amount;            
 
             cmd.Parameters.Add("@leftCount", MySqlDbType.Int32);
             cmd.Parameters["@leftCount"].Value = item.leftCount;
@@ -196,7 +193,44 @@ namespace refManager
 
             cmd.ExecuteNonQuery();
         }
+        public void UpdateItems(Items item)
+        {
+            string sql = @"update refitems
+                        set  itemID=@itemID, refID=@refID, amount=@amount, leftCount=@leftCount,
+                            stoPlace=@stoPlace, dDay=@dDay, leftAmount=@leftAmount, ItemUnit=@ItemUnit
+                        where refitemID = @refitemID";
 
+            MySqlCommand cmd = new MySqlCommand(sql, conn);
+            cmd.Parameters.Add("@itemID", MySqlDbType.Int32);
+            cmd.Parameters["@itemID"].Value = item.itemID;
+
+            cmd.Parameters.Add("@refID", MySqlDbType.Int32);
+            cmd.Parameters["@refID"].Value = item.refID;
+
+            cmd.Parameters.Add("@amount", MySqlDbType.Int32);
+            cmd.Parameters["@amount"].Value = item.amount;
+
+            cmd.Parameters.Add("@leftCount", MySqlDbType.Int32);
+            cmd.Parameters["@leftCount"].Value = item.leftCount;
+
+            cmd.Parameters.Add("@stoPlace", MySqlDbType.VarChar);
+            cmd.Parameters["@stoPlace"].Value = item.stoPlace;
+
+            cmd.Parameters.Add("@dDay", MySqlDbType.Date);
+            cmd.Parameters["@dDay"].Value = item.dDay;
+
+            cmd.Parameters.Add("@leftAmount", MySqlDbType.Int32);
+            cmd.Parameters["@leftAmount"].Value = item.leftAmount;
+
+            cmd.Parameters.Add("@ItemUnit", MySqlDbType.VarChar);
+            cmd.Parameters["@ItemUnit"].Value = item.itemUnit;
+
+            cmd.Parameters.Add("@refitemID", MySqlDbType.Int32);
+            cmd.Parameters["@refitemID"].Value = item.refItemID;
+
+            cmd.ExecuteNonQuery();
+            cmd.Parameters.Clear();
+        }
         public void Dispose()
         {
             conn.Close();

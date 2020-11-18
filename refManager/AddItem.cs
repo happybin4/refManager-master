@@ -49,7 +49,7 @@ namespace refManager
             {
                 cbItemName.DataSource = null;
             }
-            cbItemName.Tag = cbItemName.SelectedValue;
+            
             //itemID, itemName 
 
         }
@@ -106,6 +106,7 @@ namespace refManager
             if(sb.Length > 0)
             {
                 MessageBox.Show(sb.ToString());
+                return;
             }
             else
             {
@@ -115,10 +116,10 @@ namespace refManager
                     it.itemID = Convert.ToInt32(cbItemName.Tag);
                     it.refID = Convert.ToInt32(cbRefName.Tag);
                     it.amount = int.Parse(txtAmount.Text);
-                    it.count = int.Parse(txtNum.Text);
+                    it.leftCount = int.Parse(txtNum.Text);
                     it.leftCount = int.Parse(txtNum.Text);
                     it.dDay = dtpDday.Value.Date;
-                    it.leftAmount = it.amount * it.count;
+                    it.leftAmount = it.amount * it.leftCount;
                     it.itemUnit = cbAmountType.Text;
                     ItemDB idb = new ItemDB();
                     idb.InsertItem(it);

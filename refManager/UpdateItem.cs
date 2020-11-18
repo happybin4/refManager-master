@@ -15,6 +15,7 @@ namespace refManager
     {
         Items it;
         ItemDB items = new ItemDB();
+        bool bChecked = false;
         public UpdateItem()
         {
             InitializeComponent();
@@ -66,9 +67,9 @@ namespace refManager
             txtID.Text = dgvUpdateItems["refItemID", e.RowIndex].Value.ToString();
             txtRefName.Text = dgvUpdateItems["refName", e.RowIndex].Value.ToString();
             txtItmeType.Text = dgvUpdateItems["itemType", e.RowIndex].Value.ToString();
-            txtItemName.Text = dgvUpdateItems["itemName", e.RowIndex].Value.ToString();
-            txtItemName.Tag = dgvUpdateItems["refItemID", e.RowIndex].Value.ToString();
-            cbRefName.SelectedText = dgvUpdateItems["refName", e.RowIndex].Value.ToString();
+            txtItemName.Text = dgvUpdateItems["itemName", e.RowIndex].Value.ToString();            
+            //cbRefName.SelectedText = dgvUpdateItems["refName", e.RowIndex].Value.ToString();
+            cbRefName.SelectedIndex = cbRefName.FindStringExact(dgvUpdateItems["refName", e.RowIndex].Value.ToString());
             //cbItemType.SelectedText = dgvUpdateItems["itemType", e.RowIndex].Value.ToString();
             //cbItemType.SelectedIndex = 3;
             cbItemType.SelectedIndex = cbItemType.FindStringExact(dgvUpdateItems["itemType", e.RowIndex].Value.ToString());
@@ -99,7 +100,7 @@ namespace refManager
             {
                 cbItemName.DataSource = null;
             }
-            cbItemName.Tag = cbItemName.SelectedValue;
+            
             //itemID, itemName 
         }
 
@@ -117,33 +118,113 @@ namespace refManager
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
+            if (rbRef1.Checked)
+            {
+                it.stoPlace = "냉장";
+                bChecked = true;
+            }
+            else if (rbRef2.Checked)
+            {
+                it.stoPlace = "냉동";
+                bChecked = true;
+            }
+            else
+                bChecked = false;
 
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
+            StringBuilder sb = new StringBuilder();
             if(txtID.Text.Length < 1)
             {
-                MessageBox.Show("삭제할 품목을 다시 선택해주세요");
+                sb.AppendLine("품목을 더블클릭하여 선택하세요");
+            }
+            if (cbRefName.Text.Length < 1)
+            {
+                sb.AppendLine("냉장고를 선택하세요");
+            }
+            if (txtItmeType.Text.Length < 1)
+            {
+                sb.AppendLine("품목종류를 선택하세요");
+            }
+            if (txtItemName.Text.Length < 1)
+            {
+                sb.AppendLine("품목명을 선택하세요");
+            }
+            if (bChecked == false)
+            {
+                sb.AppendLine("저장장소를 고르세요");
+            }
+            if (txtNum.Text.Length < 1)
+            {
+                sb.AppendLine("갯수를 작성하세요");
+            }
+            else if (int.TryParse(txtNum.Text, out int num) == false)
+            {
+                sb.AppendLine("갯수칸에는 숫자만 입력하세요");
+            }
+
+            if (sb.Length > 0)
+            {
+                MessageBox.Show(sb.ToString());
                 return;
             }
             else
             {
-                if (MessageBox.Show($"정말로 ID : {txtID.Text}을 삭제하시겠습니까?", "삭제확인", MessageBoxButtons.OKCancel)
-                == DialogResult.OK)
+                try
                 {
+                    //refItemID, itemID, refID, amount, count, leftCount, stoPlace, dDay 
                     ItemDB db = new ItemDB();
-                    int uitemID = Convert.ToInt32(txtItemName.Tag);
-                    db.DeleteItem(uitemID);
-                    MessageBox.Show($"{txtID.Text}가 냉장고에서 삭제되었습니다.");
+                    it.refItemID = Convert.ToInt32(txtID.Text);
+                    it.itemID = Convert.ToInt32(cbItemName.Tag);
+                    it.refID = Convert.ToInt32(cbRefName.Tag);
+                    it.amount = int.Parse(txtAmount.Text);
+                    it.leftCount = int.Parse(txtNum.Text);
+                    it.leftAmount = it.amount * it.leftCount;                    
+                    it.itemUnit = cbAmountType.Text;
+                    it.dDay = dtpDate.Value.Date;
+                    db.UpdateItems(it);
+                    MessageBox.Show($"{txtID.Text}를 수정하였습니다");
+                    db.Dispose();
                     DataLoad();
                     txtClear();
                 }
-                else
+                catch(Exception err)
                 {
-                    MessageBox.Show("삭제를 취소하셨습니다.");
+                    MessageBox.Show(err.Message);
+                }
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (txtID.Text.Length < 1)
+                {
+                    MessageBox.Show("삭제할 품목을 다시 선택해주세요");
                     return;
                 }
+                else
+                {
+                    if (MessageBox.Show($"정말로 ID : {txtID.Text}을 삭제하시겠습니까?", "삭제확인", MessageBoxButtons.OKCancel)
+                    == DialogResult.OK)
+                    {
+                        ItemDB db = new ItemDB();
+                        int uitemID = Convert.ToInt32(txtID.Text);
+                        db.DeleteItem(uitemID);
+                        MessageBox.Show($"{txtID.Text}가 냉장고에서 삭제되었습니다.");
+                        db.Dispose();
+                        DataLoad();
+                        txtClear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("삭제를 취소하셨습니다.");
+                        return;
+                    }
+                }
+            }
+            catch(Exception err)
+            {
+                MessageBox.Show(err.Message);
             }
            
             
@@ -170,8 +251,12 @@ namespace refManager
 
         private void rbRef2_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbRef1.Checked)
-                it.stoPlace = "냉장";
+                        
+        }
+
+        private void btnCancle_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

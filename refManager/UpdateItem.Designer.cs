@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.dgvUpdateItems = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblSto = new System.Windows.Forms.GroupBox();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.lblID = new System.Windows.Forms.Label();
             this.txtRefName = new System.Windows.Forms.TextBox();
             this.btnDelete = new System.Windows.Forms.Button();
             this.cbItemName = new System.Windows.Forms.ComboBox();
@@ -69,10 +71,8 @@
             this.장바구니관리ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.장바구니에추가ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.구매ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblID = new System.Windows.Forms.Label();
-            this.txtID = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUpdateItems)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.lblSto.SuspendLayout();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,39 +87,56 @@
             this.dgvUpdateItems.TabIndex = 0;
             this.dgvUpdateItems.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUpdateItems_CellDoubleClick);
             // 
-            // groupBox1
+            // lblSto
             // 
-            this.groupBox1.Controls.Add(this.txtID);
-            this.groupBox1.Controls.Add(this.lblID);
-            this.groupBox1.Controls.Add(this.txtRefName);
-            this.groupBox1.Controls.Add(this.btnDelete);
-            this.groupBox1.Controls.Add(this.cbItemName);
-            this.groupBox1.Controls.Add(this.cbRefName);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.txtAmount);
-            this.groupBox1.Controls.Add(this.btnCancle);
-            this.groupBox1.Controls.Add(this.btnUpdate);
-            this.groupBox1.Controls.Add(this.dtpDate);
-            this.groupBox1.Controls.Add(this.cbAmountType);
-            this.groupBox1.Controls.Add(this.txtNum);
-            this.groupBox1.Controls.Add(this.cbItemType);
-            this.groupBox1.Controls.Add(this.txtItmeType);
-            this.groupBox1.Controls.Add(this.txtItemName);
-            this.groupBox1.Controls.Add(this.rbRef2);
-            this.groupBox1.Controls.Add(this.rbRef1);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(934, 45);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(417, 553);
-            this.groupBox1.TabIndex = 38;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "수정";
+            this.lblSto.Controls.Add(this.txtID);
+            this.lblSto.Controls.Add(this.lblID);
+            this.lblSto.Controls.Add(this.txtRefName);
+            this.lblSto.Controls.Add(this.btnDelete);
+            this.lblSto.Controls.Add(this.cbItemName);
+            this.lblSto.Controls.Add(this.cbRefName);
+            this.lblSto.Controls.Add(this.label9);
+            this.lblSto.Controls.Add(this.label8);
+            this.lblSto.Controls.Add(this.txtAmount);
+            this.lblSto.Controls.Add(this.btnCancle);
+            this.lblSto.Controls.Add(this.btnUpdate);
+            this.lblSto.Controls.Add(this.dtpDate);
+            this.lblSto.Controls.Add(this.cbAmountType);
+            this.lblSto.Controls.Add(this.txtNum);
+            this.lblSto.Controls.Add(this.cbItemType);
+            this.lblSto.Controls.Add(this.txtItmeType);
+            this.lblSto.Controls.Add(this.txtItemName);
+            this.lblSto.Controls.Add(this.rbRef2);
+            this.lblSto.Controls.Add(this.rbRef1);
+            this.lblSto.Controls.Add(this.label7);
+            this.lblSto.Controls.Add(this.label6);
+            this.lblSto.Controls.Add(this.label5);
+            this.lblSto.Controls.Add(this.label4);
+            this.lblSto.Controls.Add(this.label3);
+            this.lblSto.Controls.Add(this.label2);
+            this.lblSto.Location = new System.Drawing.Point(934, 45);
+            this.lblSto.Name = "lblSto";
+            this.lblSto.Size = new System.Drawing.Size(417, 553);
+            this.lblSto.TabIndex = 38;
+            this.lblSto.TabStop = false;
+            this.lblSto.Text = "수정";
+            // 
+            // txtID
+            // 
+            this.txtID.Location = new System.Drawing.Point(151, 54);
+            this.txtID.Name = "txtID";
+            this.txtID.ReadOnly = true;
+            this.txtID.Size = new System.Drawing.Size(101, 21);
+            this.txtID.TabIndex = 48;
+            // 
+            // lblID
+            // 
+            this.lblID.AutoSize = true;
+            this.lblID.Location = new System.Drawing.Point(45, 57);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(16, 12);
+            this.lblID.TabIndex = 47;
+            this.lblID.Text = "ID";
             // 
             // txtRefName
             // 
@@ -192,6 +209,7 @@
             this.btnCancle.TabIndex = 40;
             this.btnCancle.Text = "취소";
             this.btnCancle.UseVisualStyleBackColor = true;
+            this.btnCancle.Click += new System.EventHandler(this.btnCancle_Click);
             // 
             // btnUpdate
             // 
@@ -450,37 +468,20 @@
             this.구매ToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.구매ToolStripMenuItem.Text = "구매";
             // 
-            // lblID
-            // 
-            this.lblID.AutoSize = true;
-            this.lblID.Location = new System.Drawing.Point(45, 57);
-            this.lblID.Name = "lblID";
-            this.lblID.Size = new System.Drawing.Size(16, 12);
-            this.lblID.TabIndex = 47;
-            this.lblID.Text = "ID";
-            // 
-            // txtID
-            // 
-            this.txtID.Location = new System.Drawing.Point(151, 54);
-            this.txtID.Name = "txtID";
-            this.txtID.ReadOnly = true;
-            this.txtID.Size = new System.Drawing.Size(101, 21);
-            this.txtID.TabIndex = 48;
-            // 
             // UpdateItem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1403, 645);
             this.Controls.Add(this.menuStrip2);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.lblSto);
             this.Controls.Add(this.dgvUpdateItems);
             this.Name = "UpdateItem";
             this.Text = "수정";
             this.Load += new System.EventHandler(this.UpdateItem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvUpdateItems)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.lblSto.ResumeLayout(false);
+            this.lblSto.PerformLayout();
             this.menuStrip2.ResumeLayout(false);
             this.menuStrip2.PerformLayout();
             this.ResumeLayout(false);
@@ -491,7 +492,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvUpdateItems;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox lblSto;
         private System.Windows.Forms.MenuStrip menuStrip2;
         private System.Windows.Forms.ToolStripMenuItem 냉장고관리ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 냉장고추가ToolStripMenuItem;
