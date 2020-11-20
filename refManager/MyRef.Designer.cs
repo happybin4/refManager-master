@@ -97,7 +97,7 @@
             // 냉장고추가ToolStripMenuItem
             // 
             this.냉장고추가ToolStripMenuItem.Name = "냉장고추가ToolStripMenuItem";
-            this.냉장고추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.냉장고추가ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.냉장고추가ToolStripMenuItem.Text = "냉장고 관리";
             this.냉장고추가ToolStripMenuItem.Click += new System.EventHandler(this.냉장고추가ToolStripMenuItem_Click);
             // 
@@ -107,27 +107,28 @@
             this.품목추가ToolStripMenuItem1,
             this.품목수정ToolStripMenuItem});
             this.품목추가ToolStripMenuItem.Name = "품목추가ToolStripMenuItem";
-            this.품목추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.품목추가ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.품목추가ToolStripMenuItem.Text = "품목 관리";
+            this.품목추가ToolStripMenuItem.Click += new System.EventHandler(this.품목추가ToolStripMenuItem_Click);
             // 
             // 품목추가ToolStripMenuItem1
             // 
             this.품목추가ToolStripMenuItem1.Name = "품목추가ToolStripMenuItem1";
-            this.품목추가ToolStripMenuItem1.Size = new System.Drawing.Size(126, 22);
+            this.품목추가ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.품목추가ToolStripMenuItem1.Text = "품목 추가";
             this.품목추가ToolStripMenuItem1.Click += new System.EventHandler(this.품목추가ToolStripMenuItem1_Click);
             // 
             // 품목수정ToolStripMenuItem
             // 
             this.품목수정ToolStripMenuItem.Name = "품목수정ToolStripMenuItem";
-            this.품목수정ToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.품목수정ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.품목수정ToolStripMenuItem.Text = "품목 수정";
             this.품목수정ToolStripMenuItem.Click += new System.EventHandler(this.품목수정ToolStripMenuItem_Click);
             // 
             // 종료ToolStripMenuItem
             // 
             this.종료ToolStripMenuItem.Name = "종료ToolStripMenuItem";
-            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.종료ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.종료ToolStripMenuItem.Text = "종료";
             // 
             // 레시피ToolStripMenuItem
@@ -145,25 +146,26 @@
             this.레시피추가ToolStripMenuItem,
             this.레시피수정ToolStripMenuItem});
             this.레시피관리ToolStripMenuItem.Name = "레시피관리ToolStripMenuItem";
-            this.레시피관리ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피관리ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.레시피관리ToolStripMenuItem.Text = "레시피 관리";
             // 
             // 레시피추가ToolStripMenuItem
             // 
             this.레시피추가ToolStripMenuItem.Name = "레시피추가ToolStripMenuItem";
-            this.레시피추가ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피추가ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.레시피추가ToolStripMenuItem.Text = "레시피 추가";
+            this.레시피추가ToolStripMenuItem.Click += new System.EventHandler(this.레시피추가ToolStripMenuItem_Click);
             // 
             // 레시피수정ToolStripMenuItem
             // 
             this.레시피수정ToolStripMenuItem.Name = "레시피수정ToolStripMenuItem";
-            this.레시피수정ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.레시피수정ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.레시피수정ToolStripMenuItem.Text = "레시피 수정";
             // 
             // 요리하기ToolStripMenuItem
             // 
             this.요리하기ToolStripMenuItem.Name = "요리하기ToolStripMenuItem";
-            this.요리하기ToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.요리하기ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.요리하기ToolStripMenuItem.Text = "요리하기";
             // 
             // 장바구니ToolStripMenuItem

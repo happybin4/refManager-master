@@ -239,5 +239,16 @@ namespace refManager
                     row.DefaultCellStyle.ForeColor = Color.Red;
                 }
         }
+
+        private void 품목추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 레시피추가ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddRecipe frm = new AddRecipe();
+            frm.ShowDialog();
+        }
     }
 }

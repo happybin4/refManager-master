@@ -54,6 +54,12 @@
     <Compile Include="AddRecipe.Designer.cs">
       <DependentUpon>AddRecipe.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddRecipeItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRecipeItems.Designer.cs">
+      <DependentUpon>AddRecipeItems.cs</DependentUpon>
+    </Compile>
     <Compile Include="Basket.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,7 @@
     <Compile Include="Cook.Designer.cs">
       <DependentUpon>Cook.cs</DependentUpon>
     </Compile>
+    <Compile Include="refDB\recipeDB.cs" />
     <Compile Include="refDB\ItemDB.cs" />
     <Compile Include="MyRef.cs">
       <SubType>Form</SubType>
@@ -104,6 +111,9 @@
     <Compile Include="Util\CommonUtil.cs" />
     <EmbeddedResource Include="AddRecipe.resx">
       <DependentUpon>AddRecipe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRecipeItems.resx">
+      <DependentUpon>AddRecipeItems.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Basket.resx">
       <DependentUpon>Basket.cs</DependentUpon>
